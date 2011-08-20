@@ -41,11 +41,61 @@ it probably wouldn't even require the compilation step.
 ipython uses git, so I've put the repo at http://github.com/cleemesser/qt_pyos_input_hook
 
 
-Getting started
----------------
+How I'm getting started
+-----------------------
+This isn't meant to be used by non-developers, but here are my notes for myself
+about how I got this working my development machine ubuntu 10.10.
 
-Doing things by hand on ubuntu 10.10 (chris)
+1. edit qt_pyos_input_hook/qt_pyos_input_hook.pro  at these lines::
+    INCLUDEPATH += /home/clee/py27env/py27mkl/include/python2.7
+    LIBS += -L/home/clee/py27env/lib  -lpython2.7
 
-cd qt_pyos_input_hook
-qmake-qt4
-make 
+so that the include path points to where your own python include files and library can be found. I'm using a custom compiled python2.7.
+
+2. build the library::
+
+    cd qt_pyos_input_hook
+
+    qmake-qt4
+    make
+    cd ..
+
+That should produce a library like libqt_pyos_input_hook.so.1.0.0
+
+3. install as a developer::
+    python setupegg.py develop
+
+4. test application
+I don't have this automated yet, but you can type for yourself::
+    cd tests
+    ipython -i test_ipython_gui.py
+
+This does the equivalent of running from ipython
+%gui qt
+from qt_pyos_input_hook import *
+qt_pyos_restore_input_hook()
+run gui-qt.py
+
+# at this point I was able to see a functiong gui window with a close button while I was still able to interact at the command line.
+
+Here's what my session looked like::
+
+    In [1]: %gui qt
+    Out[1]: <PySide.QtGui.QApplication at 0x1b99c68>
+
+    In [2]: from qt_pyos_input_hook import *
+
+    In [3]: qt_pyos_restore_input_hook()
+    Out[3]: -1495714920
+
+    In [4]: run gui-qt.py
+    trying to start event loop
+
+    In [5]: 
+
+
+
+How it works (I think)
+----------------------
+the python function qt_pyos_restore_input_hook()
+sets the python input hook to a function which gets the current application Qt 
