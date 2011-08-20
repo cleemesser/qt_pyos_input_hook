@@ -27,7 +27,9 @@ static int qt_pyos_input_hook(void)
   // in _tkinter.c this part is surounded by Py_BEGIN_ALLOW_THREADS
 
    QCoreApplication *app = QCoreApplication::instance();
-   app->processEvents(QEventLoop::AllEvents, 100);
+   if (app != NULL) {
+     app->processEvents(QEventLoop::AllEvents, 100);
+   }
    return 0;
 }
 
