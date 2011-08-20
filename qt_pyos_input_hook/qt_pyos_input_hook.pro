@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT       += core
-
 QT       -= gui
 
 TARGET = qt_pyos_input_hook

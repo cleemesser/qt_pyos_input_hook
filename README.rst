@@ -97,5 +97,13 @@ Here's what my session looked like::
 
 How it works (I think)
 ----------------------
-the python function qt_pyos_restore_input_hook()
+
+
+qt_pyos_restore_input_hook()
+----------------------------
 sets the python input hook to a function which gets the current application Qt 
+
+
+qt_pyos_disable_input_hook()
+----------------------------
+unsets PyOS_Input_Hook
