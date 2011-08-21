@@ -1,0 +1,15 @@
+diff -r a056c4868074 IPython/lib/inputhook.py
+--- a/IPython/lib/inputhook.py	Sat Aug 20 16:50:32 2011 -0700
++++ b/IPython/lib/inputhook.py	Sat Aug 20 16:55:31 2011 -0700
+@@ -200,7 +200,10 @@
+         try:
+             QtCore.pyqtRestoreInputHook()
+         except AttributeError:
+-            pass
++            print "try experimental module assuming we are using PySide"
++            import qt_pyos_input_hook
++            qt_pyos_input_hook.qt_pyos_restore_input_hook()
++
+ 
+         self._current_gui = GUI_QT4
+         if app is None:
