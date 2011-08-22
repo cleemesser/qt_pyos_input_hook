@@ -94,7 +94,13 @@ Here's what my session looked like::
     In [5]: 
 
 
+ipython integration
+-------------------
 
+I've included a small experimental patch to ipython-0.11 to integrate the pyside
+inputhook so it is used automatically.
+
+    
 How it works (I think)
 ----------------------
 
