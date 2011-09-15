@@ -138,5 +138,14 @@ Qt threading examples, it also seems ok to use QCoreApplication instead of
 QApplication in case using Qt/PySide/PyQt for a non-gui threaded application with
 a events. I'm making this be the implementation for now.
 
+More things to try:
+ - it may be possible to wait on the file descripter for stdin on some (all?) platforms--
+ maybe more efficient than essentially going back to poll for input
+
+ - instead of calling a library from python, could instead make a cython
+   module--might be easier to build using standard tools and add to
+   ipython. Useful until PySide itself adds the functionality. See Brian
+   Granger's sethook.pyx and the wx code in ipython
+
 Other suggestions are welcome.
 
