@@ -113,3 +113,30 @@ sets the python input hook to a function which gets the current application Qt
 qt_pyos_disable_input_hook()
 ----------------------------
 unsets PyOS_Input_Hook
+
+
+
+Notes and experiments
+=====================
+
+I've now tried multiple different approaches to handling the threads issue. I'm
+not clear at what is expected from the contract for PyOS_InputHook
+
+Just naively calling::
+    (QApplication *)app->processEvents(QEventLoop::AllEvents, 100); //100ms timeout
+
+in the hook without any threading code at all works and I haven't been able to
+cause it to crash by running other threads from python--but it probably is
+insufficient.  Supplementary evidence from all the threading code in the
+_tkinter.c and wx versions would argue for this.
+
+I tried calling Py_BEGIN_ALLOW_THREADS and got quick crashes.
+
+After reading the Qt docs for a while, I can at least require that the hook is
+running in the main gui thread by testing that it's same thread. Based upon the
+Qt threading examples, it also seems ok to use QCoreApplication instead of
+QApplication in case using Qt/PySide/PyQt for a non-gui threaded application with
+a events. I'm making this be the implementation for now.
+
+Other suggestions are welcome.
+
