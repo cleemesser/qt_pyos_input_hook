@@ -95,11 +95,7 @@ if __name__ == '__main__':
 
     import sys
     eapp = QtGui.QApplication.instance()
-    if not eapp:
-        app = QtGui.QApplication(sys.argv)
-    else:
-        app = eapp
-
+    app = QtGui.QApplication(sys.argv) if not eapp else eapp
     lighting = Lighting()
     lighting.setWindowTitle("Lighting and Shadows")
     lighting.resize(640, 480)
